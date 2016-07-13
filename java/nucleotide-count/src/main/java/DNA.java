@@ -1,7 +1,16 @@
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DNA {
+
+    public static final Map<Character, Integer> DNA_MAP = Collections.unmodifiableMap(
+            new HashMap<Character, Integer>(){{
+            put('A',0);
+            put('C',0);
+            put('G',0);
+            put('T',0);
+        }});
 
     private String DNA;
 
@@ -11,18 +20,9 @@ public class DNA {
 
     public Integer count(Character nucleotideToCount) {
         if (isNotValidNucleotide(nucleotideToCount))
-            throw new IllegalArgumentException("nucleotideToCount input must be A, C, G or T values");
-
-        int counter = 0;
-        for (char nucleotideFound : DNA.toCharArray()) {
-            if (nucleotideFound == nucleotideToCount)
-                counter++;
-        }
-        return counter;
-    }
-
-    private boolean isNotValidNucleotide(Character nucleotideToCount) {
-        return !newEmptyDnaMap().containsKey(nucleotideToCount);
+            throw new IllegalArgumentException("nucleotideToCount input must be A, C, G or T value");
+        long nucleotideCount = DNA.chars().mapToObj(i -> (char) i).filter(c -> c == nucleotideToCount).count();
+        return Math.toIntExact(nucleotideCount);
     }
 
     public Map<Character, Integer> nucleotideCounts() {
@@ -33,12 +33,11 @@ public class DNA {
         return dnaCounter;
     }
 
+    private boolean isNotValidNucleotide(Character nucleotide) {
+        return !DNA_MAP.containsKey(nucleotide);
+    }
+
     private Map<Character, Integer> newEmptyDnaMap() {
-        Map<Character, Integer> dnaMap = new HashMap<>();
-        dnaMap.put('A',0);
-        dnaMap.put('C',0);
-        dnaMap.put('G',0);
-        dnaMap.put('T',0);
-        return dnaMap;
+        return new HashMap<>(DNA_MAP);
     }
 }
