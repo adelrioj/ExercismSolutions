@@ -1,16 +1,18 @@
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Etl {
 
    public Map<String, Integer> transform(Map<Integer, List<String>> old) {
-      Map<String, Integer> newLetterMap = new HashMap<>();
-      for (Map.Entry<Integer, List<String>> letterEntry : old.entrySet()) {
-         for (String letterToProcess : letterEntry.getValue()) {
-            newLetterMap.put(letterToProcess.toLowerCase(), letterEntry.getKey());
-         }
-      }
-      return newLetterMap;
+
+      return old.entrySet()
+              .stream()
+              .flatMap(entry ->
+                      entry.getValue().stream()
+                              .map(letter ->
+                                      new HashMap.SimpleImmutableEntry<>(letter.toLowerCase(), entry.getKey())))
+              .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
    }
 }
