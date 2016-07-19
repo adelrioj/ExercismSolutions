@@ -24,13 +24,13 @@ public class Anagram {
         char[] possibleAnagramCharArray = possibleAnagram.toLowerCase().toCharArray();
         int[] counts = new int[CHARS_IN_ALPHABET];
         for (int i = 0; i < wordCharArray.length; i++){
-            counts[wordCharArray[i]-97]++;  // Increment the count of the character at i
-            counts[possibleAnagramCharArray[i]-97]--;  // Decrement the count of the character at i
+            counts[wordCharArray[i]-97]++;
+            counts[possibleAnagramCharArray[i]-97]--;
         }
 
-        for (int i = 0; i<26; i++)
-            if (counts[i] != 0)
-                return false;
+        for (int count : counts) {
+            if (count != 0) return false;
+        }
 
         return true;
     }
