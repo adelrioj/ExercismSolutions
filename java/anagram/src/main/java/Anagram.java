@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,11 +29,7 @@ public class Anagram {
             counts[possibleAnagramCharArray[i]-97]--;
         }
 
-        for (int count : counts) {
-            if (count != 0) return false;
-        }
-
-        return true;
+        return Arrays.stream(counts).sum() == 0;
     }
 
     private boolean isSameWord(String possibleAnagram) {
