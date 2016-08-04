@@ -1,3 +1,5 @@
+import java.util.stream.Stream;
+
 public class Bob {
 
     public static final String QUESTION_RESPONSE = "Sure.";
@@ -19,7 +21,18 @@ public class Bob {
     }
 
     private boolean isYell(String sentence) {
-        return sentence.chars().filter(i -> i>=97 && i<=122).count() == 0;
+
+        long lettersCount = streamSentence(sentence)
+                .filter(c -> c.toString().matches("[a-zA-Z]"))
+                .count();
+        long lowerCaseCount = streamSentence(sentence)
+                .filter(c -> c.toString().matches("[a-z]"))
+                .count();
+        return lettersCount > 0 && lowerCaseCount == 0;
+    }
+
+    private Stream<Character> streamSentence(String sentence) {
+        return sentence.chars().mapToObj(i -> (char) i);
     }
 
     private boolean isQuestion(String sentence) {
@@ -27,6 +40,8 @@ public class Bob {
     }
 
     private boolean isEmptyAddress(String sentence) {
-        return sentence.isEmpty();
+        return sentence.trim().isEmpty();
     }
+
+
 }
