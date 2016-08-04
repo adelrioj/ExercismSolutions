@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Anagram {
@@ -12,10 +13,12 @@ public class Anagram {
     }
 
     public List<String> match(List<String> anagrams) {
-        return anagrams.stream().filter(this::isAnagram).collect(Collectors.toList());
+        return anagrams.stream()
+                .filter(isAnagram)
+                .collect(Collectors.toList());
     }
 
-    private boolean isAnagram(String possibleAnagram){
+    private Predicate<String> isAnagram = possibleAnagram -> {
         if (hasDifferentLenght(possibleAnagram))
             return false;
         if (isSameWord(possibleAnagram))
@@ -30,7 +33,7 @@ public class Anagram {
         }
 
         return Arrays.stream(counts).sum() == 0;
-    }
+    };
 
     private boolean isSameWord(String possibleAnagram) {
         return word.equalsIgnoreCase(possibleAnagram);
