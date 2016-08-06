@@ -5,10 +5,10 @@ public class Pangrams {
 
     public static boolean isPangram(String pangram) {
         String lowerCasePangram = pangram.toLowerCase();
-        return getLowerCaseAlphabetAsCharStream().allMatch(c -> lowerCasePangram.contains(Character.toString(c)));
+        return getLowerCaseAlphabet().allMatch(c -> lowerCasePangram.indexOf(c) > -1);
     }
 
-    private static Stream<Character> getLowerCaseAlphabetAsCharStream(){
+    private static Stream<Character> getLowerCaseAlphabet(){
         return IntStream.rangeClosed('a','z').mapToObj(i -> (char)i);
     }
 }
