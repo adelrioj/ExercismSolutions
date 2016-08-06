@@ -1,20 +1,19 @@
-import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class WordCount {
 
-    public static final String WORD_MATCHER_PATTERN = "\\W+";
+    public static final String WORD_MATCHER = "\\W+";
 
     public Map<String, Integer> phrase(String toCount) {
-        Map<String, Integer> countedWords = new HashMap<>();
-
-        String[] splittedString = toCount.split(WORD_MATCHER_PATTERN);
-
-        for (String word : splittedString) {
-            String lowerCaseWord = word.toLowerCase();
-            countedWords.putIfAbsent(lowerCaseWord, 0);
-            countedWords.put(lowerCaseWord, countedWords.get(lowerCaseWord) + 1);
-        }
-        return  countedWords;
+        Pattern wordPattern = Pattern.compile(WORD_MATCHER);
+        return wordPattern.splitAsStream(toCount)
+                .map(String::toLowerCase)
+                .collect(Collectors.groupingBy(
+                        Function.identity(),
+                        Collectors.collectingAndThen(Collectors.counting(), Long::intValue))
+                );
     }
 }
