@@ -5,11 +5,10 @@ import java.util.stream.Collectors;
 
 public class WordCount {
 
-    public static final String WORD_MATCHER = "\\W+";
+    private static final Pattern wordMatcherPattern = Pattern.compile("\\W+");
 
     public Map<String, Integer> phrase(String toCount) {
-        Pattern wordPattern = Pattern.compile(WORD_MATCHER);
-        return wordPattern.splitAsStream(toCount)
+        return wordMatcherPattern.splitAsStream(toCount)
                 .map(String::toLowerCase)
                 .collect(Collectors.groupingBy(
                         Function.identity(),
