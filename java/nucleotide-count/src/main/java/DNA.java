@@ -4,15 +4,18 @@ import java.util.Map;
 
 public class DNA {
 
-    public static final Map<Character, Integer> DNA_MAP = Collections.unmodifiableMap(
-            new HashMap<Character, Integer>(){{
-            put('A',0);
-            put('C',0);
-            put('G',0);
-            put('T',0);
-        }});
+    public static final Map<Character, Integer> DNA_MAP;
 
     private String DNA;
+
+    static{
+        Map<Character, Integer> aMap = new HashMap<>();
+        aMap.put('A',0);
+        aMap.put('C',0);
+        aMap.put('G',0);
+        aMap.put('T',0);
+        DNA_MAP = Collections.unmodifiableMap(aMap);
+    }
 
     public DNA(String DNA) {
         this.DNA = DNA;
