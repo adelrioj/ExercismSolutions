@@ -11,22 +11,27 @@ public class Bob {
     public static final String OTHER_RESPONSE = "Whatever.";
 
     public String hey(String sentence) {
-        if (isEmptyAddress(sentence))
+        String normalizedSentence = normalize(sentence);
+        if (isEmptyAddress(normalizedSentence))
             return EMPTY_ADDRESS_RESPONSE;
-        if (isYell(sentence))
+        else if (isYell(normalizedSentence))
             return YELL_RESPONSE;
-        if (isQuestion(sentence))
+        else if (isQuestion(normalizedSentence))
             return QUESTION_RESPONSE;
-        return OTHER_RESPONSE;
+        else return OTHER_RESPONSE;
+    }
+
+    private String normalize(String sentence) {
+        return org.apache.commons.lang3.StringEscapeUtils.unescapeJava(sentence);
     }
 
     private boolean isYell(String sentence) {
 
         long lettersCount = streamSentence(sentence)
-                .filter(c -> c.toString().matches("[a-zA-Z]"))
+                .filter(Character::isLetter)
                 .count();
         long lowerCaseCount = streamSentence(sentence)
-                .filter(c -> c.toString().matches("[a-z]"))
+                .filter(Character::isLowerCase)
                 .count();
         return lettersCount > 0 && lowerCaseCount == 0;
     }
