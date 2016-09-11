@@ -2,6 +2,8 @@ import java.util.Random;
 
 public class Robot {
 
+    private static final java.util.Random RANDOM = new Random();
+
     private String name;
 
     public Robot() {
@@ -17,13 +19,28 @@ public class Robot {
     }
 
     private String generateName(){
-        java.util.Random random = new Random();
-        char c1 = (char)(random.nextInt(26) + 'A');
-        char c2 = (char)(random.nextInt(26) + 'A');
-        char n1 = (char)(random.nextInt(9) + '0');
-        char n2 = (char)(random.nextInt(9) + '0');
-        char n3 = (char)(random.nextInt(9) + '0');
 
-        return String.valueOf(c1) + c2 + n1 + n2 + n3;
+        char c1 = getRandomUppercaseLetter();
+        char c2 = getRandomUppercaseLetter();
+        char n1 = getRandomNumber();
+        char n2 = getRandomNumber();
+        char n3 = getRandomNumber();
+
+        return new StringBuilder()
+                .append(c1)
+                .append(c2)
+                .append(n1)
+                .append(n2)
+                .append(n3)
+                .toString();
     }
+
+    private char getRandomNumber() {
+        return (char)(RANDOM.nextInt(9) + '0');
+    }
+
+    private char getRandomUppercaseLetter() {
+        return (char)(RANDOM.nextInt(26) + 'A');
+    }
+
 }
