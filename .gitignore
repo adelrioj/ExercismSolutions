@@ -12,9 +12,6 @@ logs/
 #Maven target files
 target/
 
-#jRebel config file
-rebel.xml
-
 # JAVA JDK
 *.class
 # Mobile Tools for Java (J2ME)
@@ -75,3 +72,26 @@ local.properties
 # TeXlipse plugin
 .texlipse
 
+*.class
+*.log
+
+# sbt specific
+.cache
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# Scala-IDE specific
+.ensime
+.ensime_cache/
+.scala_dependencies
+.worksheet
+
+# ENSIME specific
+.ensime_cache/
+.ensime
