@@ -16,7 +16,6 @@ object RunLengthEncoding {
     }
 
     def decode(str: String): String = {
-        val sb = new StringBuilder
         val pattern =  """(\d*)([a-zA-Z\s])""".r
 
         def checkLenght(l: String) = l match {
@@ -24,9 +23,7 @@ object RunLengthEncoding {
             case s => s.toInt
         }
 
-        for (pattern(l, c) <- pattern findAllIn str){
-            sb.append(c * checkLenght(l))
-        }
-        sb.toString
+        (for (pattern(l, c) <- pattern findAllIn str)
+            yield c * checkLenght(l)) mkString
     }
 }
