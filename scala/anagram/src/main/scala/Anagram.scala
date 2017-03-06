@@ -8,7 +8,7 @@ case class Anagram(anagram: String) {
             val lcCandidate = candidate toLowerCase
 
             lcCandidate != lcAnagram &&
-              lcCandidate.sortWith(_ > _) == lcAnagram.sortWith(_ > _)
+              lcCandidate.sorted == lcAnagram.sorted
         }
 
         possibleAnagrams filter isAnagram
