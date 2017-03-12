@@ -1,16 +1,13 @@
 class PhoneNumber(s: String) {
 
-    val number: Option[String] = (s.filter(_.isDigit) match {
+    val number: Option[String] = s.filter(_.isDigit) match {
         case x if x.length == 10 => Some(x)
-        case x +: xs if x == '1' && xs.length == 10 => Some(xs)
+        case x if x.startsWith("1") && x.length == 11 => Some(x.tail)
         case _ => None
-    }).map(_.mkString)
-
-
-    val areaCode: Option[String] = {
-        def calcAreaCode(phone: Seq[Char]): Seq[Char] = phone.take(3)
-        number.map(calcAreaCode(_).mkString)
     }
+
+
+    val areaCode: Option[String] = number.map(_.take(3))
 
     val prettyPrint: Option[String] = number.map{ x =>
         val area = areaCode.get
